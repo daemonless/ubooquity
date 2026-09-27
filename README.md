@@ -268,7 +268,7 @@ Access at: `http://localhost:2202`
 | `2202` | TCP | Library Web UI & OPDS server |
 | `2203` | TCP | Administration Web UI (set the admin password on first visit) |
 
-**Architectures:** amd64
+**Architectures:** amd64, aarch64
 **User:** `bsd` (UID/GID via PUID/PGID, defaults to 1000:1000)
 **Base:** FreeBSD 15.1
 
