@@ -1,0 +1,19 @@
+#!/bin/sh
+# Ubooquity Java service
+
+cd /app/ubooquity
+
+JAVAMEM=${MAXMEM:-512}
+
+# Signal readiness when the port is responsive
+s6-ready-when fetch -qo /dev/null http://localhost:2202/
+
+exec /usr/local/bin/s6-setuidgid bsd \
+    /usr/local/bin/java \
+    -Xmx"${JAVAMEM}"m \
+    ${JAVA_OPTS} \
+    -jar /app/ubooquity/Ubooquity.jar \
+    --headless \
+    --host 0.0.0.0 \
+    --remoteadmin \
+    --workdir /config

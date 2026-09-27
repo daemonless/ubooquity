@@ -1,0 +1,57 @@
+name: ubooquity
+
+x-daemonless:
+  title: "Ubooquity"
+  icon: ":material-book-open-page-variant:"
+  category: "Media Servers"
+  description: "Free, lightweight home server for your comics and ebooks (EPUB, MOBI, PDF, CBZ, CBR) with OPDS support and a web reader."
+  upstream_url: "https://vaemendis.net/ubooquity/"
+  web_url: "https://vaemendis.net/ubooquity/"
+  user: "bsd"
+  mlock: false
+  appjail: true
+
+  docs:
+    env:
+      PUID: "User ID for the application process"
+      PGID: "Group ID for the application process"
+      TZ: "Timezone for the container"
+      MAXMEM:
+        desc: "Maximum Java memory allocation pool in MB (default: 512)"
+        optional: true
+    volumes:
+      /config: "Configuration directory, database, and settings"
+      /books:
+        desc: "Book library directory (EPUB, MOBI, PDF)"
+        optional: true
+      /comics:
+        desc: "Comic library directory (CBZ, CBR, CBT)"
+        optional: true
+      /files:
+        desc: "Raw documents and files directory"
+        optional: true
+    ports:
+      2202: "Library Web UI & OPDS server"
+      2203: "Administration Web UI (set the admin password on first visit)"
+
+services:
+  ubooquity:
+    image: ghcr.io/daemonless/ubooquity:latest
+    container_name: ubooquity
+    restart: unless-stopped
+
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+      - MAXMEM=512
+
+    volumes:
+      - /path/to/containers/ubooquity:/config
+      - /path/to/books:/books
+      - /path/to/comics:/comics
+      - /path/to/files:/files
+
+    ports:
+      - 2202:2202
+      - 2203:2203

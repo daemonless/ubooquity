@@ -1,0 +1,10 @@
+#!/bin/sh
+# Health check for Ubooquity
+
+if ! fetch -qo /dev/null --timeout 5 "http://127.0.0.1:2202/" 2>/dev/null; then
+    echo "Ubooquity library port not responding"
+    exit 1
+fi
+
+echo "healthy"
+exit 0

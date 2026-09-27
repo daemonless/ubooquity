@@ -1,0 +1,16 @@
+icon: ':material-book-open-page-variant:'
+
+cit:
+  mode: screenshot
+  port: 2202
+  wait: 60
+  health: /
+
+build:
+  architectures:
+    - amd64
+    - aarch64
+  variants:
+    - tag: latest
+      containerfile: Containerfile
+      default: true

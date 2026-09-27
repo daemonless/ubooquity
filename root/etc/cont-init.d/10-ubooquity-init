@@ -1,0 +1,18 @@
+#!/bin/sh
+# Ubooquity container initialization
+
+echo "==> Initializing Ubooquity..."
+
+# Ensure config subdirectories and library directories exist
+mkdir -p /config/fonts /books /comics /files
+
+# Seed default preferences if not present
+if [ ! -f /config/preferences.json ]; then
+    echo "==> Seeding default preferences.json..."
+    cp /defaults/preferences.json /config/preferences.json
+fi
+
+# Ensure correct permissions for bsd user
+chown -R bsd:bsd /config /app/ubooquity
+
+echo "==> Ubooquity initialization complete."
