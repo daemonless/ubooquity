@@ -41,10 +41,10 @@ services:
       - TZ=UTC  # Timezone for the container
       - MAXMEM=512  # Maximum Java memory allocation pool in MB (default: 512)
     volumes:
-      - "/path/to/containers/ubooquity:/config"
+      - "/containers/ubooquity:/config"
       - "/path/to/books:/books" # optional
-      - "/path/to/containers/ubooquity/comics:/comics" # optional
-      - "/path/to/containers/ubooquity/files:/files" # optional
+      - "/containers/ubooquity/comics:/comics" # optional
+      - "/containers/ubooquity/files:/files" # optional
     ports:
       - "2202:2202"
       - "2203:2203"
@@ -96,13 +96,13 @@ services:
       - ubooquity_files: /files
 volumes:
   ubooquity:
-    device: '/path/to/containers/ubooquity'
+    device: '/containers/ubooquity'
   books:
     device: 'books'
   ubooquity_comics:
-    device: '/path/to/containers/ubooquity/comics'
+    device: '/containers/ubooquity/comics'
   ubooquity_files:
-    device: '/path/to/containers/ubooquity/files'
+    device: '/containers/ubooquity/files'
 ```
 
 **Makejail**:
@@ -118,55 +118,6 @@ OPTION from=ghcr.io/daemonless/ubooquity:${tag}
 ```
 
 Save the files above, then run `appjail-director up`.
-
-
-> [!WARNING]
-> Exposing ports in AppJail means that your service can be reached from remote hosts. If that is not your intention, do not expose the ports and communicate with the service using the jail's IPv4 address or hostname assigned by the virtual network.
->
-> To avoid exposing ports, just remove the `expose` option in your `appjail-director.yml` or from your command-line arguments.
-
-### Podman CLI
-
-```bash
-podman run -d --name ubooquity \
-  -p 2202:2202 \
-  -p 2203:2203 \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  -e TZ=UTC \
-  -e MAXMEM=512 \
-  -v /path/to/containers/ubooquity:/config \
-  -v /path/to/books:/books # optional \
-  -v /path/to/containers/ubooquity/comics:/comics # optional \
-  -v /path/to/containers/ubooquity/files:/files # optional \
-  ghcr.io/daemonless/ubooquity:latest
-```
-
-Save as `run.sh`, then run `sh run.sh`.
-
-### AppJail
-
-
-```bash
-appjail oci run -Pd \
-  -o overwrite=force \
-  -o container="args:--pull" \
-  -o virtualnet=":<random> default" \
-  -o nat \
-  -o expose="2202:2202 proto:tcp" \
-  -o expose="2203:2203 proto:tcp" \
-  -e PUID=1000 \
-  -e PGID=1000 \
-  -e TZ=UTC \
-  -e MAXMEM=512 \
-  -o fstab="/path/to/containers/ubooquity /config <pseudofs>" \
-  -o fstab="/path/to/books /books <pseudofs>" \ # optional
-  -o fstab="/path/to/containers/ubooquity/comics /comics <pseudofs>" \ # optional
-  -o fstab="/path/to/containers/ubooquity/files /files <pseudofs>" \ # optional
-  ghcr.io/daemonless/ubooquity:latest ubooquity
-```
-
-Save the files above, then run `sh run.sh`.
 
 
 > [!WARNING]
@@ -192,52 +143,13 @@ services:
       - TZ=UTC
       - MAXMEM=512
     volumes:
-      - "/path/to/containers/ubooquity:/config"
+      - "/containers/ubooquity:/config"
       - "/path/to/books:/books"
-      - "/path/to/containers/ubooquity/comics:/comics"
-      - "/path/to/containers/ubooquity/files:/files"
+      - "/containers/ubooquity/comics:/comics"
+      - "/containers/ubooquity/files:/files"
 ```
 
-Save as `bastille-compose.yml`, then run `bastille up`. Or via CLI:
-
-```bash
-bastille create -O \
-  --env PUID=1000 \
-  --env PGID=1000 \
-  --env TZ=UTC \
-  --env MAXMEM=512 \
-  --volume /path/to/containers/ubooquity /config \
-  --volume /path/to/books /books \
-  --volume /path/to/containers/ubooquity/comics /comics \
-  --volume /path/to/containers/ubooquity/files /files \
-  ubooquity ghcr.io/daemonless/ubooquity:latest inherit
-```
-
-### Ansible
-
-```yaml
-- name: Deploy ubooquity
-  containers.podman.podman_container:
-    name: ubooquity
-    image: "ghcr.io/daemonless/ubooquity:latest"
-    state: started
-    restart_policy: always
-    env:
-      PUID: "1000"
-      PGID: "1000"
-      TZ: "UTC"
-      MAXMEM: "512"
-    ports:
-      - "2202:2202"
-      - "2203:2203"
-    volumes:
-      - "/path/to/containers/ubooquity:/config"
-      - "/path/to/books:/books" # optional
-      - "/path/to/containers/ubooquity/comics:/comics" # optional
-      - "/path/to/containers/ubooquity/files:/files" # optional
-```
-
-Save as `ubooquity-deploy.yaml`, then run `ansible-playbook ubooquity-deploy.yaml`.
+Save as `bastille-compose.yml`, then run `bastille up`.
 
 Access at: `http://localhost:2202`
 
