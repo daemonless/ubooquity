@@ -1,5 +1,5 @@
 ARG BASE_VERSION=15.1
-FROM ghcr.io/daemonless/base:${BASE_VERSION}
+FROM ghcr.io/daemonless/base-exec:${BASE_VERSION}
 
 ARG FREEBSD_ARCH=amd64
 ARG PACKAGES="openjdk17-jre"
@@ -47,13 +47,16 @@ RUN echo "${UBOOQUITY_VERSION}" > /app/version
 
 # Copy root filesystem
 COPY root/ /
+RUN chmod +x /daemonless/libexec/ubooquity /daemonless/init.d/*
+
+CMD ["/daemonless/libexec/ubooquity"]
 
 # Create application and library directories
 RUN mkdir -p /config /books /comics /files && \
     chown -R bsd:bsd /app/ubooquity /config /books /comics /files
 
 # Set permissions
-RUN chmod +x /etc/services.d/*/run /etc/cont-init.d/* /healthz
+RUN chmod +x /healthz
 
 ENV MAXMEM=512 \
     JAVA_OPTS=""
