@@ -1,11 +1,11 @@
 {
-  "generated": "2026-10-17T10:09:00Z",
+  "generated": "2026-10-23T08:32:17Z",
   "image": "ubooquity",
   "tags": {
     "latest-amd64": {
       "app_version": "3.1.0",
       "arch": "amd64",
-      "generated": "2026-10-17T10:07:59Z",
+      "generated": "2026-10-23T08:20:14Z",
       "packages": {
         "dotnet": [],
         "freebsd": [
@@ -189,7 +189,7 @@
               "BSD2CLAUSE"
             ],
             "name": "FreeBSD-runtime",
-            "version": "15.1p4"
+            "version": "15.1p5"
           },
           {
             "licenses": [
@@ -238,7 +238,7 @@
               "PD"
             ],
             "name": "FreeBSD-zoneinfo",
-            "version": "15.1p4"
+            "version": "15.1p5"
           },
           {
             "licenses": [
@@ -266,7 +266,7 @@
               "MPL20"
             ],
             "name": "ca_root_nss",
-            "version": "3.130"
+            "version": "3.131"
           },
           {
             "licenses": [
@@ -283,13 +283,6 @@
             ],
             "name": "encodings",
             "version": "1.1.0,1"
-          },
-          {
-            "licenses": [
-              "ISCL"
-            ],
-            "name": "execline",
-            "version": "2.9.8.1"
           },
           {
             "licenses": [
@@ -443,7 +436,7 @@
               "MIT"
             ],
             "name": "libX11",
-            "version": "1.8.13_1,1"
+            "version": "1.8.14,1"
           },
           {
             "licenses": [
@@ -478,7 +471,7 @@
               "MIT"
             ],
             "name": "libXi",
-            "version": "1.8.3,1"
+            "version": "1.8.4,1"
           },
           {
             "licenses": [
@@ -492,7 +485,7 @@
               "MIT"
             ],
             "name": "libXrender",
-            "version": "0.9.12"
+            "version": "0.9.13"
           },
           {
             "licenses": [
@@ -506,7 +499,7 @@
               "MIT"
             ],
             "name": "libXtst",
-            "version": "1.2.5"
+            "version": "1.2.6"
           },
           {
             "licenses": [
@@ -613,7 +606,7 @@
               "PSFL"
             ],
             "name": "python312",
-            "version": "3.12.14_1"
+            "version": "3.12.15"
           },
           {
             "licenses": [
@@ -621,20 +614,6 @@
             ],
             "name": "readline",
             "version": "8.3.6"
-          },
-          {
-            "licenses": [
-              "ISCL"
-            ],
-            "name": "s6",
-            "version": "2.14.0.1"
-          },
-          {
-            "licenses": [
-              "ISCL"
-            ],
-            "name": "skalibs",
-            "version": "2.14.5.1"
           },
           {
             "licenses": [
@@ -929,7 +908,7 @@
       "source": "upstream",
       "summary": {
         "dotnet": 0,
-        "freebsd": 92,
+        "freebsd": 89,
         "go": 0,
         "java": 48,
         "node": 0,
@@ -937,7 +916,7 @@
         "python": 2,
         "ruby": 0,
         "rust": 0,
-        "total": 142
+        "total": 139
       }
     }
   }
